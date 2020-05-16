@@ -1,7 +1,10 @@
 import os
 import sys
-import datetime
+import requests
+from bs4 import BeautifulSoup
 
 
 def lambda_handler(event: dict, context):
-    return "Hello World"
+    response = requests.get("http://example.com/")
+    bs = BeautifulSoup(response.text)
+    return bs.title.name
