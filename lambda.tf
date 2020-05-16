@@ -4,14 +4,7 @@ data "archive_file" "function" {
   output_path = "lambda/function.zip"
 }
 
-resource "null_resource" "pip" {
-  provisioner "local-exec" {
-    command = "rm -rf ./lib && pip install -r requirements.txt -t ./lib/python"
-  }
-}
-
 data "archive_file" "layer" {
-  depends_on  = ["null_resource.pip"]
   type        = "zip"
   source_dir  = "./lib"
   output_path = "lambda/lib.zip"
